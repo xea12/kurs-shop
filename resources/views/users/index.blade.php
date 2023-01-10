@@ -37,12 +37,15 @@
     $(function() {
         $('.delete').click(function() {
             $.ajax({
-                method: "POST",
-                url: "some.php",
-                data: {name: "JOHN", location: "Boston"}
+                method: "DELETE",
+                url: "http://localhost/users/" + $(this).data("id")
+                {{-- data: {id: $(this).data("id") } --}}
             })
             .done(function( response ){
-                alert( "Data Saved: " + response );
+                window.location.reload();
+            })
+            .fail(function( response  ){
+                alert("ERROR")
             });
 
            {{--  console.log($(this).data("id")); --}}
