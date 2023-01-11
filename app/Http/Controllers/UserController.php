@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -18,7 +19,7 @@ class UserController extends Controller
     public function index(): Factory|View|Application
     {
         return view('users.index', [
-            'users' => User::paginate(3)
+            'users' => User::paginate(5)
         ]);
     }
 
@@ -85,11 +86,18 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $flight = User::find($id);
-        $flight->delete();
-        return response()->json([
-            'status' => 'success'
-        ]);
+        try {
+            $user = User::find($id);
+            $user->delete();
+            return response()->json([
+                'status' => 'success'
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Coś poszło nie tak!'
+            ])->setStatusCode(500);
+        }
         
     }
 }
