@@ -1,7 +1,7 @@
 $(function() {
     $('.delete').click(function() {
         Swal.fire({
-            title: 'czy na pewno chcesz usunąć użytkownika o id: ' + $(this).data("id") + '?',
+            title: 'czy na pewno chcesz usunąć element o id: ' + $(this).data("id") + '?',
             text: "Nie będziesz mógł tego przywrócić!",
             icon: 'warning',
             showCancelButton: true,
