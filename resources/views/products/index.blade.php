@@ -22,6 +22,7 @@
                 <th scope="col">Ilość</th>
                 <th scope="col">Cena</th>
                 <th scope="col">Akcje</th>
+                <th scope="col">Zdjęcie</th>
             </tr>
             </thead>
             <tbody>
@@ -41,6 +42,11 @@
                         </a>
                         
                         <button class="btn btn-danger btn-sm delete" data-id="{{ $product->id }}">X</button>
+                    </td>
+                    <td>
+                        @if(!is_null($product->image_path))
+                            <img src="{{ asset('storage/' . $product->image_path) }}" style="height: 50px" alt="Zdjęcie produktu">
+                        @endif
                     </td>
 
                 </tr> 
