@@ -1,8 +1,8 @@
 $(function() {
     $('.delete').click(function() {
         Swal.fire({
-            title: 'czy na pewno chcesz usunąć element o id: ' + $(this).data("id") + '?',
-            text: "Nie będziesz mógł tego przywrócić!",
+            title: confirmDelete + $(this).data("id") + '??',
+            text: infoDelete,
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',

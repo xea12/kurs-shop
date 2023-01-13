@@ -60,6 +60,8 @@
 @endsection
 @section('javascript')
     const deleteUrl = "{{ url('products') }}/";
+    const confirmDelete = "{{ __('shop.messages.delete_confirm') }}";
+    const infoDelete = "{{ __('shop.messages.delete_info') }}";
 @endsection
 @section('js-files')
     <script src="{{ asset('js/delete.js') }}"></script>
