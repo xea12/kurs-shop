@@ -49,6 +49,8 @@ return [
             'price' => 'Cena',
             'image' => 'Grafika',
             'category' => 'Kategoria',
+            'image' => 'Zdjęcie',
+            'actions' => 'Akcje',
         ]
     ]
 ];

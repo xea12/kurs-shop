@@ -11,7 +11,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\UpsertProductRequest;
-
+use App\Models\ProductCategory;
 
 class ProductController extends Controller
 {
@@ -34,7 +34,9 @@ class ProductController extends Controller
      */
     public function create(): View
     {
-        return view("products.create");
+        return view("products.create", [
+            'categories' => ProductCategory::all()
+        ]);
     }
 
     /**
@@ -76,7 +78,8 @@ class ProductController extends Controller
     public function edit(Product $product): View
     {
         return view("products.edit", [
-            'product' => $product
+            'product' => $product,
+            'categories' => ProductCategory::all()
         ]);
     }
 
