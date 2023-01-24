@@ -39,7 +39,7 @@
 
                         <div class="col-md-6">
                             <select id="category" class="form-control" name="category_id" disabled>
-                                @if(!is_null($product->category))
+                                @if($product->hasCategory())
                                     <option value="">{{ $product->category->name }}</option>
                                 @else 
                                     <option value="">Brak</option>    

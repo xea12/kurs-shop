@@ -34,7 +34,7 @@
                     <td>{{ $product->description }}</td>
                     <td>{{ $product->amount }}</td>
                     <td>{{ $product->price }}</td>
-                    <td>@if(!is_null($product->category)){{ $product->category->name }}@endif</td>
+                    <td>@if($product->hasCategory()){{ $product->category->name }}@endif</td>
                     <td>
                         <a href="{{ route('products.show', $product->id) }}">
                             <button class="btn btn-sm btn-success show">Podgląd</button>
