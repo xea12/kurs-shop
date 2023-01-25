@@ -24,7 +24,7 @@ class WelcomeController extends Controller
         $paginate = $request->query('paginate') ?? 9;
 
         $query = Product::query();
-        $query->paginate($paginate);
+        
         if (!is_null($filters)) {
             if (array_key_exists('categories', $filters)) {
                 $query = $query->whereIn('category_id', $filters['categories']);
@@ -36,13 +36,11 @@ class WelcomeController extends Controller
                 $query = $query->where('price', '<=', $filters['price_max']);
             }
 
-            return response()->json([
-                'data' => $query->get()
-            ]);
+            return response()->json($query->paginate($paginate));
         }
 
         return view("welcome", [
-            'products' => $query->get(),
+            'products' => $query->paginate($paginate),
             'categories' => ProductCategory::orderBy('name', 'ASC')->get(),
             'defaultImage' => 'https://nodigmarket24.com/wp-content/uploads/2019/03/Placeholder.jpg'
         ]);
