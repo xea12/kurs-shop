@@ -75,7 +75,6 @@
             @yield('content')
         </main>
     </div>
-    <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
     <script type="text/javascript">
         @yield('javascript')

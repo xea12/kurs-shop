@@ -37363,7 +37363,7 @@ Popper.Defaults = Defaults;
 /***/ (function(module) {
 
 /*!
-* sweetalert2 v11.6.16
+* sweetalert2 v11.7.1
 * Released under the MIT License.
 */
 (function (global, factory) {
@@ -37570,14 +37570,19 @@ Popper.Defaults = Defaults;
   const getValidationMessage = () => elementByClass(swalClasses['validation-message']);
 
   /**
-   * @returns {HTMLElement | null}
+   * @returns {HTMLButtonElement | null}
    */
-  const getConfirmButton = () => elementBySelector(`.${swalClasses.actions} .${swalClasses.confirm}`);
+  const getConfirmButton = () => /** @type {HTMLButtonElement} */elementBySelector(`.${swalClasses.actions} .${swalClasses.confirm}`);
 
   /**
-   * @returns {HTMLElement | null}
+   * @returns {HTMLButtonElement | null}
    */
-  const getDenyButton = () => elementBySelector(`.${swalClasses.actions} .${swalClasses.deny}`);
+  const getCancelButton = () => /** @type {HTMLButtonElement} */elementBySelector(`.${swalClasses.actions} .${swalClasses.cancel}`);
+
+  /**
+   * @returns {HTMLButtonElement | null}
+   */
+  const getDenyButton = () => /** @type {HTMLButtonElement} */elementBySelector(`.${swalClasses.actions} .${swalClasses.deny}`);
 
   /**
    * @returns {HTMLElement | null}
@@ -37588,11 +37593,6 @@ Popper.Defaults = Defaults;
    * @returns {HTMLElement | null}
    */
   const getLoader = () => elementBySelector(`.${swalClasses.loader}`);
-
-  /**
-   * @returns {HTMLElement | null}
-   */
-  const getCancelButton = () => elementBySelector(`.${swalClasses.actions} .${swalClasses.cancel}`);
 
   /**
    * @returns {HTMLElement | null}
@@ -37957,7 +37957,6 @@ Popper.Defaults = Defaults;
     timerProgressBar.style.width = '100%';
     const timerProgressBarFullWidth = parseInt(window.getComputedStyle(timerProgressBar).width);
     const timerProgressBarPercent = timerProgressBarWidth / timerProgressBarFullWidth * 100;
-    timerProgressBar.style.removeProperty('transition');
     timerProgressBar.style.width = `${timerProgressBarPercent}%`;
   };
 
@@ -38438,9 +38437,11 @@ Popper.Defaults = Defaults;
     show(inputContainer);
 
     // input autofocus
-    setTimeout(() => {
-      focusInput(input);
-    });
+    if (params.inputAutoFocus) {
+      setTimeout(() => {
+        focusInput(input);
+      });
+    }
   };
 
   /**
@@ -39234,7 +39235,9 @@ Popper.Defaults = Defaults;
     const confirmButton = getConfirmButton();
     const denyButton = getDenyButton();
     const cancelButton = getCancelButton();
-    if (document.activeElement instanceof HTMLElement && ![confirmButton, denyButton, cancelButton].includes(document.activeElement)) {
+    /** @type HTMLElement[] */
+    const buttons = [confirmButton, denyButton, cancelButton];
+    if (document.activeElement instanceof HTMLElement && !buttons.includes(document.activeElement)) {
       return;
     }
     const sibling = arrowKeysNextButton.includes(key) ? 'nextElementSibling' : 'previousElementSibling';
@@ -39720,6 +39723,7 @@ Popper.Defaults = Defaults;
     inputLabel: '',
     inputValue: '',
     inputOptions: {},
+    inputAutoFocus: true,
     inputAutoTrim: true,
     inputAttributes: {},
     inputValidator: undefined,
@@ -39945,6 +39949,8 @@ Popper.Defaults = Defaults;
   /**
    * Shows loader (spinner), this is useful with AJAX requests.
    * By default the loader be shown instead of the "Confirm" button.
+   *
+   * @param {HTMLButtonElement} [buttonToReplace]
    */
   const showLoading = buttonToReplace => {
     let popup = getPopup();
@@ -39964,6 +39970,11 @@ Popper.Defaults = Defaults;
     popup.setAttribute('aria-busy', 'true');
     popup.focus();
   };
+
+  /**
+   * @param {HTMLElement} popup
+   * @param {HTMLButtonElement} [buttonToReplace]
+   */
   const replaceButton = (popup, buttonToReplace) => {
     const actions = getActions();
     const loader = getLoader();
@@ -41306,7 +41317,7 @@ Popper.Defaults = Defaults;
     };
   });
   SweetAlert.DismissReason = DismissReason;
-  SweetAlert.version = '11.6.16';
+  SweetAlert.version = '11.7.1';
 
   const Swal = SweetAlert;
   // @ts-ignore
@@ -41328,7 +41339,7 @@ if (typeof this !== 'undefined' && this.Sweetalert2){this.swal = this.sweetAlert
 
 "use strict";
 /* provided dependency */ var Buffer = __webpack_require__(/*! buffer */ "./node_modules/buffer/index.js")["Buffer"];
-// Axios v1.2.2 Copyright (c) 2022 Matt Zabriskie and contributors
+// Axios v1.2.4 Copyright (c) 2023 Matt Zabriskie and contributors
 
 
 function bind(fn, thisArg) {
@@ -43912,7 +43923,7 @@ function mergeConfig(config1, config2) {
   return config;
 }
 
-const VERSION = "1.2.2";
+const VERSION = "1.2.4";
 
 const validators$1 = {};
 

@@ -17,10 +17,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-/* Route::get('/', function () {
-    return view('welcome');
-}); */
 Route::get('/', [WelcomeController::class, 'index']);
+
 Route::get('/products', [ProductController::class, 'index'])->name('products.index')->middleware('auth');
 Route::get('/products/create', [ProductController::class, 'create'])->name('products.create')->middleware('auth');
 Route::post('/products', [ProductController::class, 'store'])->name('products.store')->middleware('auth');
@@ -30,9 +28,9 @@ Route::post('/products/{product}', [ProductController::class, 'update'])->name('
 Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy')->middleware('auth');
 
 Route::get('/users/list', [UserController::class, 'index'])->middleware('auth');
-Route::delete('/users/{id}', [UserController::class, 'destroy'])->middleware('auth');
+Route::delete('/users/{user}', [UserController::class, 'destroy'])->middleware('auth');
+Route::get('/hello', [HelloWorldController::class, 'show']);
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-

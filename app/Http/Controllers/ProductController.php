@@ -2,16 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Exception;
+use App\Http\Requests\UpsertProductRequest;
 use App\Models\Product;
-use Illuminate\Http\Request;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Routing\Controller;
+use App\Models\ProductCategory;
+use Exception;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Redirect;
-use App\Http\Requests\UpsertProductRequest;
-use App\Models\ProductCategory;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class ProductController extends Controller
 {
@@ -23,7 +21,7 @@ class ProductController extends Controller
     public function index(): View
     {
         return view("products.index", [
-            'products' => Product::paginate(5)
+            'products' => Product::paginate(10)
         ]);
     }
 
@@ -47,9 +45,8 @@ class ProductController extends Controller
      */
     public function store(UpsertProductRequest $request): RedirectResponse
     {
-
         $product = new Product($request->validated());
-        if($request->hasFile('image')) {
+        if ($request->hasFile('image')) {
             $product->image_path = $request->file('image')->store('products');
         }
         $product->save();
@@ -93,7 +90,7 @@ class ProductController extends Controller
     public function update(UpsertProductRequest $request, Product $product): RedirectResponse
     {
         $product->fill($request->validated());
-        if($request->hasFile('image')) {
+        if ($request->hasFile('image')) {
             $product->image_path = $request->file('image')->store('products');
         }
         $product->save();
@@ -116,9 +113,8 @@ class ProductController extends Controller
         } catch (Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Coś poszło nie tak!'
+                'message' => 'Wystąpił błąd!'
             ])->setStatusCode(500);
         }
-        
     }
 }

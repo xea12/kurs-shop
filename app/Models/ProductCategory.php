@@ -9,7 +9,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class ProductCategory extends Model
 {
     use HasFactory;
-        /**
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
@@ -17,6 +18,7 @@ class ProductCategory extends Model
     protected $fillable = [
         'name'
     ];
+
     public function products(): HasMany
     {
         return $this->hasMany(Product::class);

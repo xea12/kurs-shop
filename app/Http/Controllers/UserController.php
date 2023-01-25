@@ -8,6 +8,8 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use function PHPUnit\Framework\throwException;
 
 class UserController extends Controller
 {
@@ -19,7 +21,7 @@ class UserController extends Controller
     public function index(): Factory|View|Application
     {
         return view('users.index', [
-            'users' => User::paginate(5)
+            'users' => User::paginate(3)
         ]);
     }
 
@@ -81,13 +83,12 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param User $user
+     * @return JsonResponse
      */
-    public function destroy($id)
+    public function destroy(User $user): JsonResponse
     {
         try {
-            $user = User::find($id);
             $user->delete();
             return response()->json([
                 'status' => 'success'
@@ -95,9 +96,8 @@ class UserController extends Controller
         } catch (Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Coś poszło nie tak!'
+                'message' => 'Wystąpił błąd!'
             ])->setStatusCode(500);
         }
-        
     }
 }

@@ -29,7 +29,7 @@
                             <label for="description" class="col-md-4 col-form-label text-md-right">{{ __('shop.product.fields.description') }}</label>
 
                             <div class="col-md-6">
-                                <textarea id="description" type="text" maxlength="1500" class="form-control @error('description') is-invalid @enderror" name="description" required> {{ old('description') }}</textarea>
+                                <textarea id="description" maxlength="1500" class="form-control @error('description') is-invalid @enderror" name="description" required autofocus>{{ old('description') }}</textarea>
 
                                 @error('description')
                                     <span class="invalid-feedback" role="alert">
@@ -43,7 +43,7 @@
                             <label for="amount" class="col-md-4 col-form-label text-md-right">{{ __('shop.product.fields.amount') }}</label>
 
                             <div class="col-md-6">
-                                <input id="amount" type="number" min="0" class="form-control @error('amount') is-invalid @enderror" name="amount" value="{{ old('amount') }}" required autocomplete="amount">
+                                <input id="amount" type="number" min="0" class="form-control @error('amount') is-invalid @enderror" name="amount" value="{{ old('amount') }}" required autocomplete="amount" autofocus>
 
                                 @error('amount')
                                     <span class="invalid-feedback" role="alert">
@@ -52,7 +52,6 @@
                                 @enderror
                             </div>
                         </div>
-
 
                         <div class="form-group row">
                             <label for="price" class="col-md-4 col-form-label text-md-right">{{ __('shop.product.fields.price') }}</label>
@@ -67,17 +66,18 @@
                                 @enderror
                             </div>
                         </div>
+
                         <div class="form-group row">
                             <label for="category" class="col-md-4 col-form-label text-md-right">{{ __('shop.product.fields.category') }}</label>
 
                             <div class="col-md-6">
-                                <select id="category" class="form-control @error('category_id') is-invalid @enderror" name="category_id">
+                                <select id="price" class="form-control @error('category_id') is-invalid @enderror" name="category_id">
                                     <option value="">Brak</option>
-                                    @foreach ($categories as $category)
-                                        <option value="{{ $category->id }}">{{ $category->name }}</option>                                      
+                                    @foreach($categories as $category)
+                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
                                     @endforeach
-
                                 </select>
+
                                 @error('category_id')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -85,11 +85,13 @@
                                 @enderror
                             </div>
                         </div>
+
                         <div class="form-group row">
                             <label for="image" class="col-md-4 col-form-label text-md-right">{{ __('shop.product.fields.image') }}</label>
 
                             <div class="col-md-6">
                                 <input id="image" type="file" class="form-control @error('image') is-invalid @enderror" name="image">
+
                                 @error('image')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -97,6 +99,7 @@
                                 @enderror
                             </div>
                         </div>
+
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
