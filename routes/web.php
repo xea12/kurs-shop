@@ -1,10 +1,10 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\HelloWorldController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WelcomeController;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,16 +21,20 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [WelcomeController::class, 'index']);
 
 Route::middleware(['auth', 'verified'])->group(function() {
-    Route::middleware('can:isAdmin')->group(function() {
+    Route::middleware(['can:isAdmin'])->group(function() {
+        Route::get('/products/{product}/download', [ProductController::class, 'downloadImage'])->name('products.downloadImage');
         Route::resource('products', ProductController::class);
-        Route::get('/users/list', [UserController::class, 'index']);
-        Route::delete('/users/{user}', [UserController::class, 'destroy']);
+
+        Route::resource('users', UserController::class)->only([
+            'index', 'edit', 'update', 'destroy'
+        ]);
     });
+    Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+    Route::post('/cart/{product}', [CartController::class, 'store'])->name('cart.store');
+    Route::delete('/cart/{product}', [CartController::class, 'destroy'])->name('cart.destroy');
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 });
 
 Route::get('/hello', [HelloWorldController::class, 'show']);
 
 Auth::routes(['verify' => true]);
-
-

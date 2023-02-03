@@ -52,10 +52,12 @@
                             </select>
                         </div>
                     </div>
-                    <div class="form-group row justify-content-center" >
-                        <div class="col-md-6">
+                    <div class="form-group row" >
+                        <div class="offset-md-4 col-md-6">
                             @if(!is_null($product->image_path))
-                                <img src="{{ asset('storage/' . $product->image_path) }}" style="height: 150px" alt="Zdjęcie produktu">
+                                <a href="{{ route('products.downloadImage', $product->id) }}">
+                                    <img src="{{ asset('storage/' . $product->image_path) }}" style="height: 150px" alt="Zdjęcie produktu">
+                                </a>
                             @endif
                         </div>
                     </div>

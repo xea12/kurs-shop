@@ -4,17 +4,17 @@ var __webpack_exports__ = {};
   !*** ./resources/js/delete.js ***!
   \********************************/
 $(function () {
-  $('.delete').click(function () {
+  $(".delete").click(function () {
     var _this = this;
     Swal.fire({
-      title: confirmDelete + $(this).data("id") + '??',
+      title: confirmDelete + $(this).data("id") + "??",
       text: infoDelete,
-      icon: 'warning',
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      cancelButtonText: 'NIE',
-      confirmButtonText: 'Tak, usuń to!'
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      cancelButtonText: "NIE",
+      confirmButtonText: "Tak, usuń to!"
     }).then(function (result) {
       if (result.isConfirmed) {
         $.ajax({
@@ -24,8 +24,8 @@ $(function () {
           window.location.reload();
         }).fail(function (data) {
           Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
+            icon: "error",
+            title: "Oops...",
             text: data.responseJSON.message
           });
         });

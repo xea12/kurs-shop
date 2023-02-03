@@ -42,7 +42,7 @@ class WelcomeController extends Controller
         return view("welcome", [
             'products' => $query->paginate($paginate),
             'categories' => ProductCategory::orderBy('name', 'ASC')->get(),
-            'defaultImage' => 'https://nodigmarket24.com/wp-content/uploads/2019/03/Placeholder.jpg'
+            'defaultImage' => config('shop.defaultImage'),
         ]);
     }
 }

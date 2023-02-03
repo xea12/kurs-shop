@@ -8,9 +8,11 @@ use App\Models\ProductCategory;
 use Exception;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class ProductController extends Controller
 {
@@ -80,6 +82,21 @@ class ProductController extends Controller
             'categories' => ProductCategory::all()
         ]);
     }
+        /**
+     * Download image of the specified resource in storage.
+     *
+     * @param  Product  $product
+     * @return RedirectResponse|StreamedResponse
+     */
+    public function downloadImage(Product $product): RedirectResponse|StreamedResponse
+    {
+
+        if(Storage::exists($product->image_path)) {
+            return Storage::download($product->image_path);
+        }
+
+        return Redirect::back();
+    }
 
     /**
      * Update the specified resource in storage.
@@ -90,8 +107,12 @@ class ProductController extends Controller
      */
     public function update(UpsertProductRequest $request, Product $product): RedirectResponse
     {
+        $oldImagePath = $product->image_path;   
         $product->fill($request->validated());
         if ($request->hasFile('image')) {
+            if(Storage::exists($oldImagePath)) {
+                Storage::delete($oldImagePath);
+            }
             $product->image_path = $request->file('image')->store('products');
         }
         $product->save();

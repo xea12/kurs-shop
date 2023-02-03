@@ -51,6 +51,7 @@ return [
             'category' => 'Kategoria',
             'image' => 'Zdjęcie',
             'actions' => 'Akcje',
+            'total' => 'Łączny koszt [PLN]',
         ]
     ]
 ];
