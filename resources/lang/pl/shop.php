@@ -11,8 +11,8 @@ return [
         'actions' => 'Akcje'
     ],
     'messages' => [
-      'delete_confirm' => 'Czy na pewno chcesz usunąć rekord o id: ',
-      'delete_info' => 'Nie będziesz mógł tego przywrócić!!!'
+      'delete_confirm' => 'Czy na pewno chcesz usunąć rekord?',
+      'delete_confirm2' => 'Czy na pewno chcesz usunąć przedmiot z koszyka?'
     ],
     'button' => [
         'save' => 'Zapisz',
@@ -49,9 +49,7 @@ return [
             'price' => 'Cena',
             'image' => 'Grafika',
             'category' => 'Kategoria',
-            'image' => 'Zdjęcie',
-            'actions' => 'Akcje',
-            'total' => 'Łączny koszt [PLN]',
+            'total' => 'Całkowity koszt',
         ]
     ]
 ];

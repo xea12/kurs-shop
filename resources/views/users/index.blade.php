@@ -5,7 +5,7 @@
     @include('helpers.flash-messages')
     <div class="row">
         <div class="col-6">
-            <h1><i class="fa-solid fa-users"></i> {{ __('shop.user.index_title') }}</h1>
+            <h1><i class="fas fa-users"></i> {{ __('shop.user.index_title') }}</h1>
         </div>
     </div>
     <table class="table table-hover">
@@ -28,8 +28,11 @@
                 <td>{{ $user->surname }}</td>
                 <td>{{ $user->phone_number }}</td>
                 <td>
+                    <a href="{{ route('users.edit', $user->id) }}">
+                        <button class="btn btn-success btn-sm"><i class="far fa-edit"></i></button>
+                    </a>
                     <button class="btn btn-danger btn-sm delete" data-id="{{ $user->id }}">
-                        <i class="fa-solid fa-trash-can"></i>
+                        <i class="far fa-trash-alt"></i>
                     </button>
                 </td>
             </tr>
@@ -42,7 +45,6 @@
 @section('javascript')
     const deleteUrl = "{{ url('users') }}/";
     const confirmDelete = "{{ __('shop.messages.delete_confirm') }}";
-    const infoDelete = "{{ __('shop.messages.delete_info') }}";
 @endsection
 @section('js-files')
     <script src="{{ asset('js/delete.js') }}"></script>

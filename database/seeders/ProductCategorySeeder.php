@@ -15,9 +15,8 @@ class ProductCategorySeeder extends Seeder
     public function run()
     {
         $data = [
-            ['name' => 'Karnety'],
-            ['name' => 'Ubrania'],
-            ['name' => 'Krioterapia']
+            ['name' => 'Jedzenie'],
+            ['name' => 'Akcesoria']
         ];
         ProductCategory::insert($data);
     }

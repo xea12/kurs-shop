@@ -8,6 +8,8 @@ use App\Models\ProductCategory;
 use Exception;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
@@ -82,21 +84,6 @@ class ProductController extends Controller
             'categories' => ProductCategory::all()
         ]);
     }
-        /**
-     * Download image of the specified resource in storage.
-     *
-     * @param  Product  $product
-     * @return RedirectResponse|StreamedResponse
-     */
-    public function downloadImage(Product $product): RedirectResponse|StreamedResponse
-    {
-
-        if(Storage::exists($product->image_path)) {
-            return Storage::download($product->image_path);
-        }
-
-        return Redirect::back();
-    }
 
     /**
      * Update the specified resource in storage.
@@ -107,10 +94,10 @@ class ProductController extends Controller
      */
     public function update(UpsertProductRequest $request, Product $product): RedirectResponse
     {
-        $oldImagePath = $product->image_path;   
+        $oldImagePath = $product->image_path;
         $product->fill($request->validated());
         if ($request->hasFile('image')) {
-            if(Storage::exists($oldImagePath)) {
+            if (Storage::exists($oldImagePath)) {
                 Storage::delete($oldImagePath);
             }
             $product->image_path = $request->file('image')->store('products');
@@ -129,7 +116,7 @@ class ProductController extends Controller
     {
         try {
             $product->delete();
-            Session::flash('status',  __('shop.product.status.delete.success'));
+            Session::flash('status', __('shop.product.status.delete.success'));
             return response()->json([
                 'status' => 'success'
             ]);
@@ -139,5 +126,19 @@ class ProductController extends Controller
                 'message' => 'Wystąpił błąd!'
             ])->setStatusCode(500);
         }
+    }
+
+    /**
+     * Download image of the specified resource in storage.
+     *
+     * @param  Product  $product
+     * @return RedirectResponse|StreamedResponse
+     */
+    public function downloadImage(Product $product): RedirectResponse|StreamedResponse
+    {
+        if (Storage::exists($product->image_path)) {
+            return Storage::download($product->image_path);
+        }
+        return Redirect::back();
     }
 }
